@@ -1,0 +1,45 @@
+#! /bin/sh
+# $Id: confwrapper,v 1.4.2.4 2004/05/19 15:39:22 aida_s Exp $
+# vim: set sw=2 ts=8:
+
+set -e
+case "$1" in
+  run)
+  shift
+  if test ! -f cwenv.sh; then
+    make cwenv.sh
+  fi
+  . ./cwenv.sh
+  if test -f cwlocal.sh; then
+    . ./cwlocal.sh
+  fi
+  export CPPFLAGS CC CFLAGS
+  echo "CPPFLAGS=\"$CPPFLAGS\""
+  echo "CC=\"$CC\""
+  echo "CFLAGS=\"$CFLAGS\""
+  echo "$@"
+  exec "$@"
+  ;;
+
+  mkenv)
+  envname="$2"
+  shift
+  shift
+  for p in "$@"; do
+    case "$p" in
+      *" "*|*" 	"*|*"'"*|*'"'*)
+      echo 'confwrapper: warning: removing "'"$p"'" from '"$envname" >&2
+      ;;
+      *) args=$args${args+" "}$p ;;
+    esac
+  done
+  cat << EOF
+$envname="$args"
+EOF
+  ;;
+
+  *)
+  echo "confwrapper.sub: Bad argument" >&2
+  exit 1
+  ;;
+esac

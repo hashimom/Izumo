@@ -1,0 +1,5 @@
+/* $Id: Imakefile,v 1.4 2003/01/26 04:36:32 aida_s Exp $ */
+#include "../../../Canna.conf"
+#define SimpleCommand
+#define TargetName crxgram
+#include "../cmd.tmpl"

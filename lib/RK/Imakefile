@@ -1,0 +1,59 @@
+/* $Id: Imakefile,v 1.4 2003/04/05 23:27:53 aida_s Exp $ */
+#include "../../Canna.conf"
+        CANNAROOT = ../..
+          DEFINES = $(DEBUGFLAGS) $(useObsoleteFilename) /* -DRK_LOG */
+         INCLUDES = -I$(CANNAROOT)/include
+
+#ifdef Debug
+          DEBUGFLAGS = -DDebug
+#endif
+
+             OBJS = tempdic.o permdic.o dicsw.o ngram.o \
+			bun.o context.o nword.o ncache.o \
+			dic.o util.o kana.o \
+			bits.o dd.o fq.o
+
+              SRCS = dicsw.c permdic.c tempdic.c ngram.c \
+			context.c bun.c ncache.c \
+			nword.c dic.c util.c kana.c \
+			bits.c dd.c fq.c
+
+            HEADER = RK.h
+           HEADERS = $(HEADER) RKintern.h
+
+NormalLibraryObjectRule()
+NormalLibraryTarget(RK,$(OBJS))
+NormalLintTarget($(SRCS))
+LintLibraryTarget(RK,$(SRCS))
+DependTarget()
+
+LinkFileList(includes,$(HEADER),$(CANNAROOT)/include/canna,../../lib/RK)
+LinkFileList(includes,RKrename.h,$(CANNAROOT)/include,../lib/RK)
+InstallMultiple($(HEADER),$(cannaIncDir))
+
+InstallLibManPageLong(RkBgnBun,$(cannaManDir),RkBgnBun)
+InstallLibManPageLong(RkDefine,$(cannaManDir),RkDefineDic)
+InstallLibManPageLong(RkDelete,$(cannaManDir),RkDeleteDic)
+InstallLibManPageLong(RkEndBun,$(cannaManDir),RkEndBun)
+InstallLibManPageLong(RkEnlarg,$(cannaManDir),RkEnlarge)
+InstallLibManPageLong(RkFinali,$(cannaManDir),RkFinalize)
+InstallLibManPageLong(RkGetDic,$(cannaManDir),RkGetDicList)
+InstallLibManPageLong(RkGetKan,$(cannaManDir),RkGetKanji)
+InstallLibManPageLong(RkGetLex,$(cannaManDir),RkGetLex)
+InstallLibManPageLong(RkGetSta,$(cannaManDir),RkGetStat)
+InstallLibManPageLong(RkGetYom,$(cannaManDir),RkGetYomi)
+InstallLibManPageLong(RkGoto,$(cannaManDir),RkGoto)
+InstallLibManPageLong(RkInitia,$(cannaManDir),RkInitialize)
+InstallLibManPageLong(RkIntro,$(cannaManDir),RkIntro)
+InstallLibManPageLong(RkLeft,$(cannaManDir),RkLeft)
+InstallLibManPageLong(RkMountD,$(cannaManDir),RkMountDic)
+InstallLibManPageLong(RkNext,$(cannaManDir),RkNext)
+InstallLibManPageLong(RkNfer,$(cannaManDir),RkNfer)
+InstallLibManPageLong(RkPrev,$(cannaManDir),RkPrev)
+InstallLibManPageLong(RkRemoun,$(cannaManDir),RkRemountDic)
+InstallLibManPageLong(RkResize,$(cannaManDir),RkResize)
+InstallLibManPageLong(RkRight,$(cannaManDir),RkRight)
+InstallLibManPageLong(RkShorte,$(cannaManDir),RkShorten)
+InstallLibManPageLong(RkStoreY,$(cannaManDir),RkStoreYomi)
+InstallLibManPageLong(RkUnmoun,$(cannaManDir),RkUnmountDic)
+InstallLibManPageLong(RkXfer,$(cannaManDir),RkXfer)

@@ -1,0 +1,16 @@
+/* $Id: Imakefile,v 1.4 2003/09/17 03:21:36 aida_s Exp $ */
+#include "../Canna.conf"
+
+         CANNAROOT = ..
+      CANNA_HEADER = 
+      OSDEP_HEADER = ccompat.h net.h widedef.h
+        INT_HEADER = patchlevel.h protodefs.h
+        
+all::
+
+LinkFileList(includes,$(CANNA_HEADER),$(CANNAROOT)/include/canna,../../canna)
+LinkFileList(includes,$(INT_HEADER),$(CANNAROOT)/include,../canna)
+LinkFileList(includes,$(OSDEP_HEADER),$(CANNAROOT)/include,../canna)
+InstallMultiple($(CANNA_HEADER),$(cannaIncDir))
+
+depend::
