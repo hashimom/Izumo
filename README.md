@@ -11,9 +11,9 @@ Izumo - 日本語入力システム「いずも」
 
 以下を実行して、ビルド・インストールを行います。
 
-  % smkmf
-  % make izumo
-  % sudo make install
+  xmkmf
+  make izumo
+  sudo make install
 
 
 2. 使用方法
