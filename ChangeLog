@@ -2,3 +2,6 @@
 
 	* Fork from Canna 3.7p3.
 
+2014-10-29 Hashimoto Masahiko <hashimom@geeko.jp>
+
+	* Switch build method from imake to Cmake.

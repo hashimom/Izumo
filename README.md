@@ -10,9 +10,17 @@ Izumo Project
 
 以下を実行して、ビルド・インストールを行います。
 
-$ xmkmf  
-$ make izumo  
+$ mkdir build && cd build 
+$ cmake .. 
+$ make 
 $ sudo make install  
+
+# 起動方法
+
+現在、rootユーザでのみ動作します。
+（辞書ファイルのパーミッションを変更すれば root 以外でも動作します。）
+
+$ izumooyashiro -r /usr/local/share/izumo/dic/ 
 
 
 # 使用方法
@@ -20,6 +28,8 @@ $ sudo make install
 現時点では「かんな」と差異が無いため、既存のCannaクライアントが使用可能です。  
 なお、libcanna 等、Cannaクライアントライブラリは含んでいませんので、  
 別途インストールをお願いいたします。  
+
+2014/10/29: 辞書ファイルを入れ間違えました。後日サブミットし直しますm(_ _)m
 
 
 # 謝辞
