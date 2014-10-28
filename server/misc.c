@@ -185,7 +185,7 @@ char *argv[];
     }
 
     if (Syslog) {
-      openlog("cannaserver", LOG_PID, LOG_DAEMON);
+      openlog("izumooyashiro", LOG_PID, LOG_DAEMON);
       openlog_done = 1;
     } /* -syslog だったら、ログファイルを初期化する */
 #else
@@ -201,7 +201,7 @@ char *argv[];
     if( !ddname ) {
 	ddname = malloc(strlen(DICHOME) + 1);
 	if( !ddname )
-	    FatalError("cannaserver:Initialize failed\n");
+	    FatalError("izumooyashiro:DICHOME name Initialize failed\n");
 	strcpy( (char *)ddname, DICHOME );
     }
 
@@ -209,16 +209,16 @@ char *argv[];
         pwent = getpwnam(userID);
 	if (pwent) {
 	    if(setgid(pwent->pw_gid)) {
-	        FatalError("cannaserver:couldn't set groupid to canna user's group\n");	  
+	        FatalError("izumooyashiro:couldn't set groupid to canna user's group\n");	  
 	    }
 	    if (initgroups(userID, pwent->pw_gid)) {
-	        FatalError("cannserver: couldn't init supplementary groups\n");
+	        FatalError("izumooyashiro: couldn't init supplementary groups\n");
 	    }
 	    if (setuid(pwent->pw_uid)) {
-	        FatalError("cannaserver: couldn't set userid\n");
+	        FatalError("izumooyashiro: couldn't set userid\n");
 	    }
 	} else if (userID != NULL) {
-	    FatalError("cannaserver: -u flag specified, but canna not run as root\n");
+	    FatalError("izumooyashiro: -u flag specified, but canna not run as root\n");
 	}
     }
 
@@ -262,7 +262,7 @@ char *argv[];
    ir_debug( Dmsg(5, "辞書ホームディレクトリィ = %s\n", ddname ); )
 
     if ((context = RkwInitialize( (char *)ddname )) < 0)
-	FatalError("cannaserver:Initialize failed\n") ;
+	FatalError("izumooyashiro:RkwInitialize failed\n") ;
     rkw_initialize_done = 1;
     free( (char *)ddname ) ;
     RkwCloseContext( context ) ;
@@ -530,7 +530,7 @@ int
 CheckSignal()
 {
     if( caught_signal == SIGTERM ) {
-	PrintMsg( "Cannaserver Terminated\n" ) ;
+	PrintMsg( "Izumooyashiro Terminated\n" ) ;
 	return 1;
     } else if(caught_signal) {
 	PrintMsg( "Caught a signal(%d)\n", caught_signal ) ;

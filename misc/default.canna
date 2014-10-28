@@ -1,0 +1,24 @@
+(setq romkana-table "default.cbp")
+
+(use-dictionary
+ "iroha"
+ "fuzokugo"
+ "hojomwd"
+ "hojoswd"
+ "keishiki"
+ :bushu "bushu"
+ :user "user"
+ )
+
+;; シンボルの定義
+(defsymbol 
+  ?[ "「" "『" "[" "［" "〔"
+  ?] "」" "』" "]" "］" "〕" )
+
+(defsymbol 
+  ?. "。" "." "．"
+  ?, "、" "," "，" )
+
+;(defsymbol 
+;  ?~ "~" "￣" "〜"
+;  ?/ "/" "／" "・" )
