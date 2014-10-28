@@ -10,14 +10,14 @@ Izumo Project
 
 以下を実行して、ビルド・インストールを行います。
 
-$ mkdir build && cd build 
-$ cmake .. 
-$ make 
+$ mkdir build && cd build  
+$ cmake ..  
+$ make  
 $ sudo make install  
 
 # 起動方法
 
-現在、rootユーザでのみ動作します。
+現在、rootユーザでのみ動作します。  
 （辞書ファイルのパーミッションを変更すれば root 以外でも動作します。）
 
 $ izumooyashiro -r /usr/local/share/izumo/dic/ 
