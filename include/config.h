@@ -1,11 +1,6 @@
-/* ./include/config.h.  Generated from config.h.in by configure.  */
-/* ./include/config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* access file */
-#define ACCESS_FILE "/etc/hosts.canna"
-
-/* izumo library directory */
-#define CANNALIBDIR "/usr/local/share/izumo"
+#define ACCESS_FILE "/usr/local/share/izumo/hosts.izumo"
 
 /* izumo dictionary home directory */
 #define DICHOME "/usr/local/share/izumo/dic"
@@ -239,21 +234,6 @@
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "hashimom@geeko.jp"
 
-/* Define to the full name of this package. */
-#define PACKAGE_NAME "izumo"
-
-/* Define to the full name and version of this package. */
-#define PACKAGE_STRING "izumo 1.0"
-
-/* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "izumo"
-
-/* Define to the home page for this package. */
-#define PACKAGE_URL ""
-
-/* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0"
-
 /* Define as the return type of signal handlers (`int' or `void'). */
 #define RETSIGTYPE void
 
@@ -271,9 +251,6 @@
 
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 /* #undef TM_IN_SYS_TIME */
-
-/* Version number of package */
-#define VERSION "1.0"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

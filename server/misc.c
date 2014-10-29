@@ -45,18 +45,18 @@ static char rcs_id[]="@(#) $Id: misc.c,v 1.16.2.4 2004/04/26 21:48:37 aida_s Exp
 #include <sys/ioctl.h>
 
 #ifndef DICHOME
-#define DICHOME     "/usr/lib/canna/dic"
+#define DICHOME     "/usr/local/share/izumo/dic"
 #endif
 
 #ifndef ERRDIR
-#define ERRDIR      "/usr/spool/canna"
+#define ERRDIR      "/var/log"
 #endif
 
 #define ERRFILE     "CANNA"
 #define ERRFILE2    "msgs"
 #define ERRSIZE     64
 #ifndef ACCESS_FILE
-#define ACCESS_FILE "/etc/hosts.canna"
+#define ACCESS_FILE "/usr/local/share/izumo/hosts.izumo"
 #endif
 
 static void FatalError pro((const char *f));
@@ -762,7 +762,7 @@ CreateAccessControlList()
 	}
 
 	/* AccessControlListをインターネットアドレスで管理する */
-	/* hosts.cannaからホスト名を求める */
+	/* hosts.izumoからホスト名を求める */
 	/* ホスト名からインターネットアドレスを求めて ACLRecに登録する  */
 	current->hostaddrs = GetAddrListFromName(wp);
 	if (!current->hostaddrs) {

@@ -56,7 +56,7 @@ ADD_EXECUTABLE(mergewd dic/cmd/mergewd.c)
 ADD_EXECUTABLE(pod     dic/cmd/pod.c)
 
 ADD_CUSTOM_TARGET(iroha
-  COMMAND cat ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/a.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
+  COMMAND cat ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/pubdic.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
   COMMAND ${PROJECT_BINARY_DIR}/mergewd < ${PROJECT_BINARY_DIR}/iroha.spl > ${PROJECT_BINARY_DIR}/iroha.t
   COMMAND rm ${PROJECT_BINARY_DIR}/iroha.spl
 )
@@ -82,7 +82,7 @@ ADD_DEPENDENCIES(izumooyashiro iroha)
 ADD_DEPENDENCIES(izumooyashiro fuzokugo)
 
 INSTALL(TARGETS izumooyashiro DESTINATION bin)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/misc/default.canna DESTINATION share/izumo)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/server/hosts.izumo DESTINATION share/izumo)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/phono/default.kpdef DESTINATION share/izumo/dic RENAME default.ctd)
 INSTALL(FILES ${PROJECT_BINARY_DIR}/iroha.t DESTINATION share/izumo/dic/canna)
 INSTALL(FILES ${PROJECT_BINARY_DIR}/fuzokugo.cbd DESTINATION share/izumo/dic/canna)
