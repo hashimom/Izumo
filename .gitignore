@@ -29,5 +29,5 @@
 *.hex
 
 # others
-./build
-./include/config.h
+build
+include/config.h
