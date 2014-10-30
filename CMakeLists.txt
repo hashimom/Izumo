@@ -56,9 +56,13 @@ ADD_EXECUTABLE(mergewd dic/cmd/mergewd.c)
 ADD_EXECUTABLE(pod     dic/cmd/pod.c)
 
 ADD_CUSTOM_TARGET(iroha
-  COMMAND cat ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/pubdic.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
+  COMMAND cp ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/*.p ${PROJECT_BINARY_DIR}
+  COMMAND cat ${PROJECT_BINARY_DIR}/*.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
   COMMAND ${PROJECT_BINARY_DIR}/mergewd < ${PROJECT_BINARY_DIR}/iroha.spl > ${PROJECT_BINARY_DIR}/iroha.t
   COMMAND rm ${PROJECT_BINARY_DIR}/iroha.spl
+  COMMAND ${PROJECT_BINARY_DIR}/crxdic -D ${PROJECT_BINARY_DIR}/cnj.bits -m -o iroha.cbd -n iroha ${PROJECT_BINARY_DIR}/iroha.t
+  COMMAND ${PROJECT_BINARY_DIR}/crfreq -div 512 -o iroha.cld iroha.cbd iroha.mwd
+  COMMAND cat ${PROJECT_BINARY_DIR}/bushu.cbd >> ${PROJECT_BINARY_DIR}/iroha.cbd
 )
 
 ADD_CUSTOM_TARGET(fuzokugo
@@ -73,6 +77,9 @@ ADD_CUSTOM_TARGET(fuzokugo
 
 ADD_DEPENDENCIES(iroha pod)
 ADD_DEPENDENCIES(iroha mergewd)
+ADD_DEPENDENCIES(iroha fuzokugo)
+ADD_DEPENDENCIES(iroha crxdic)
+ADD_DEPENDENCIES(iroha crfreq)
 ADD_DEPENDENCIES(fuzokugo forcpp)
 ADD_DEPENDENCIES(fuzokugo crxgram)
 ADD_DEPENDENCIES(fuzokugo forsort)
@@ -84,8 +91,9 @@ ADD_DEPENDENCIES(izumooyashiro fuzokugo)
 INSTALL(TARGETS izumooyashiro DESTINATION bin)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/server/hosts.izumo DESTINATION share/izumo)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/phono/default.kpdef DESTINATION share/izumo/dic RENAME default.ctd)
-INSTALL(FILES ${PROJECT_BINARY_DIR}/iroha.t DESTINATION share/izumo/dic/canna)
+INSTALL(FILES ${PROJECT_BINARY_DIR}/iroha.cbd DESTINATION share/izumo/dic/canna)
 INSTALL(FILES ${PROJECT_BINARY_DIR}/fuzokugo.cbd DESTINATION share/izumo/dic/canna)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/dics.dir DESTINATION share/izumo/dic/canna)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/hojomwd.t DESTINATION share/izumo/dic/canna RENAME hojomwd.ctd)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/hojoswd.t DESTINATION share/izumo/dic/canna RENAME hojoswd.ctd)
 INSTALL(FILES ${PROJECT_BINARY_DIR}/bushu.cbd DESTINATION share/izumo/dic/canna RENAME bushu.cld)
