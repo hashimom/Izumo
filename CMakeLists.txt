@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(izumo C)
 
+SET(IZUMO_ACCESS_FILE "/usr/local/share/izumo/hosts.izumo")
+SET(IZUMO_DICHOME     "/usr/local/share/izumo/dic")
+SET(IZUMO_ERRDIR      "/var/log")
+SET(IR_UNIX_DIR       "/tmp/.iroha_unix")
+SET(IR_UNIX_SOCKNAME  "IROHA")
+
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/RK)
+
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/include/config.h.in ${PROJECT_SOURCE_DIR}/include/config.h)
 
 # build izumooyashiro
 ADD_EXECUTABLE(izumooyashiro 
