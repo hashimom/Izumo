@@ -64,8 +64,7 @@ ADD_EXECUTABLE(mergewd dic/cmd/mergewd.c)
 ADD_EXECUTABLE(pod     dic/cmd/pod.c)
 
 ADD_CUSTOM_TARGET(iroha
-  COMMAND cp ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/*.p ${PROJECT_BINARY_DIR}
-  COMMAND cat ${PROJECT_BINARY_DIR}/*.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
+  COMMAND cat ${PROJECT_SOURCE_DIR}/dic/ideo/pubdic/pubdic.p | ${PROJECT_BINARY_DIR}/pod - -p -i -2 > ${PROJECT_BINARY_DIR}/iroha.spl
   COMMAND ${PROJECT_BINARY_DIR}/mergewd < ${PROJECT_BINARY_DIR}/iroha.spl > ${PROJECT_BINARY_DIR}/iroha.t
   COMMAND rm ${PROJECT_BINARY_DIR}/iroha.spl
   COMMAND ${PROJECT_BINARY_DIR}/crxdic -D ${PROJECT_BINARY_DIR}/cnj.bits -m -o iroha.cbd -n iroha ${PROJECT_BINARY_DIR}/iroha.t

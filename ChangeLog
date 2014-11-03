@@ -7,3 +7,7 @@
 	* Switch build method from imake to Cmake.
 	* Porting pubdic from FreeWnn.
 	* Rename hosts.izumo from hosts.canna. (to local directory)
+
+2014-11-03 Hashimoto Masahiko <hashimom@geeko.jp>
+
+	* Collect a file all pubdic files together.
