@@ -11,3 +11,7 @@
 2014-11-03 Hashimoto Masahiko <hashimom@geeko.jp>
 
 	* Collect a file all pubdic files together.
+
+2014-11-06 Hashimoto Masahiko <hashimom@geeko.jp>
+	* Repaired a build error.
+
