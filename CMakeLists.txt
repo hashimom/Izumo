@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(izumo C)
 
-SET(IZUMO_ACCESS_FILE "/usr/local/share/izumo/hosts.izumo")
-SET(IZUMO_DICHOME     "/usr/local/share/izumo/dic")
+SET(IZUMO_ACCESS_FILE "${CMAKE_INSTALL_PREFIX}/share/izumo/hosts.izumo")
+SET(IZUMO_DICHOME     "${CMAKE_INSTALL_PREFIX}/share/izumo/dic")
 SET(IZUMO_ERRDIR      "/var/log")
 SET(IR_UNIX_DIR       "/tmp/.iroha_unix")
 SET(IR_UNIX_SOCKNAME  "IROHA")
