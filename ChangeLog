@@ -15,3 +15,6 @@
 2014-11-06 Hashimoto Masahiko <hashimom@geeko.jp>
 	* Repaired a build error.
 
+2014-11-07 Hashimoto Masahiko <hashimom@geeko.jp>
+	* Delete dupulicated header files.
+
