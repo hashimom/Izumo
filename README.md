@@ -17,10 +17,7 @@ $ sudo make install
 
 # 起動方法
 
-現在、rootユーザでのみ動作します。  
-（辞書ファイルのパーミッションを変更すれば root 以外でも動作します。）  
-
-$ izumooyashiro -r /usr/local/share/izumo/dic/  
+$ izumooyashiro  
 
 
 # 使用方法
