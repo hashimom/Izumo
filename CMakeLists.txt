@@ -104,3 +104,5 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/dics.dir DESTINATION share/iz
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/hojomwd.t DESTINATION share/izumo/dic/canna RENAME hojomwd.ctd)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/hojoswd.t DESTINATION share/izumo/dic/canna RENAME hojoswd.ctd)
 INSTALL(FILES ${PROJECT_BINARY_DIR}/bushu.cbd DESTINATION share/izumo/dic/canna RENAME bushu.cld)
+INSTALL(DIRECTORY DESTINATION share/izumo/dic/user)
+INSTALL(DIRECTORY DESTINATION share/izumo/dic/group)
