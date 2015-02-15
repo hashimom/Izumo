@@ -25,7 +25,6 @@ static char rcs_id[]="@(#) $Id: misc.c,v 1.16.2.4 2004/04/26 21:48:37 aida_s Exp
 #endif
 
 /* LINTLIBRARY */
-
 #include "server.h"
 #ifdef HAVE_SYSLOG /* !__EMX__ */
 # include <syslog.h>
@@ -44,25 +43,13 @@ static char rcs_id[]="@(#) $Id: misc.c,v 1.16.2.4 2004/04/26 21:48:37 aida_s Exp
 #include <pwd.h>
 #include <sys/ioctl.h>
 
-#ifndef DICHOME
-#define DICHOME     "/usr/local/share/izumo/dic"
-#endif
-
-#ifndef ERRDIR
-#define ERRDIR      "/var/log"
-#endif
-
 #define ERRFILE     "CANNA"
 #define ERRFILE2    "msgs"
 #define ERRSIZE     64
-#ifndef ACCESS_FILE
-#define ACCESS_FILE "/usr/local/share/izumo/hosts.izumo"
-#endif
 
-static void FatalError pro((const char *f));
-static int CreateAccessControlList pro((void));
-static void FreeAccessControlList pro((void));
-
+static void FatalError(const char *f);
+static int CreateAccessControlList(void);
+static void FreeAccessControlList(void);
 
 #ifdef DEBUG
 #define LOGFILE "/tmp/canna.log"
@@ -117,7 +104,7 @@ Usage()
   FatalError(USAGE);
 }
 
-extern void getserver_version pro((void));
+extern void getserver_version(void);
 
 void
 EarlyInit ( argc, argv )
@@ -281,10 +268,7 @@ char *argv[];
     CreateAccessControlList() ;
 }
 
-static void
-mysignal(sig, func)
-int sig;
-RETSIGTYPE (*func) pro((int));
+static void mysignal(int sig, RETSIGTYPE* func)
 {
 #ifdef SA_RESTART
     struct sigaction new_action;

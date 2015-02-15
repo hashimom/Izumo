@@ -3,7 +3,7 @@ PROJECT(izumo C)
 
 SET(IZUMO_ACCESS_FILE "${CMAKE_INSTALL_PREFIX}/share/izumo/hosts.izumo")
 SET(IZUMO_DICHOME     "${CMAKE_INSTALL_PREFIX}/share/izumo/dic")
-SET(IZUMO_ERRDIR      "/var/log")
+SET(IZUMO_ERRDIR      "${CMAKE_INSTALL_PREFIX}/share/izumo/log")
 SET(IR_UNIX_DIR       "/tmp/.iroha_unix")
 SET(IR_UNIX_SOCKNAME  "IROHA")
 
@@ -106,3 +106,4 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/dic/ideo/words/hojoswd.t DESTINATION share/i
 INSTALL(FILES ${PROJECT_BINARY_DIR}/bushu.cbd DESTINATION share/izumo/dic/canna RENAME bushu.cld)
 INSTALL(DIRECTORY DESTINATION share/izumo/dic/user)
 INSTALL(DIRECTORY DESTINATION share/izumo/dic/group)
+INSTALL(DIRECTORY DESTINATION share/izumo/log)

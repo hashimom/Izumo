@@ -31,3 +31,5 @@
 # others
 build
 include/config.h
+.project
+.cproject
