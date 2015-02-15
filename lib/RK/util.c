@@ -521,6 +521,7 @@ _RkGetOffset(dic, pos)
     }
   }
   _Rkpanic("Cannot get Offset", 0, 0, 0);
+  return(0);
 }
 
 int

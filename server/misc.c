@@ -381,25 +381,7 @@ int Pri;
 const char *f;
 va_dcl
 {
-  va_list ap;
-  const char *args[MAXARGS];
-  int argno = 0;
-
-  va_start(ap);
-
-  while (++argno < MAXARGS && (args[argno] = va_arg(ap, const char *)))
-    ;
-  args[MAXARGS - 1] = (const char *)0;
-  va_end(ap);
-
-  if (!ServerLogFp) {
-    ServerLogFp = stderr;
-  }
-  if (LogLevel >= Pri) {
-    fprintf(ServerLogFp, f, args[0], args[1], args[2], args[3], args[4],
-	    args[5], args[6], args[7], args[8]);
-    fflush(ServerLogFp);
-  }
+	/* not supported */
 }
 #endif /* !__STDC__ */
 #endif /* USE_VARARGS */
@@ -562,7 +544,7 @@ const char   *hostname;
     int i;
 #else
     const struct hostent *hent;
-    const char *const *haddrp;
+    char** haddrp;
     struct in_addr numaddr;
 #endif
 

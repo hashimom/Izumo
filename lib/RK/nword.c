@@ -57,7 +57,7 @@ clearWord(w, bb)			/* make word empty */
 {
   if (w) {
     w->nw_cache = (struct ncache *)0;
-    w->nw_rowcol = bb; /* Ê¸Àá */
+    w->nw_rowcol = bb; /* Ê¸ï¿½ï¿½ */
     w->nw_klen = w->nw_ylen = 0;
     w->nw_class = ND_EMP;
     w->nw_flags = 0;
@@ -939,7 +939,7 @@ parseWord(cx, yy, ys, ye, class, xqh, maxclen, doflush, douniq)
 {
   struct RkKxGram	*gram = cx->gram->gramdic;
   int			clen;
-  static unsigned	classmask[] = { /* ¸å¤í¤Ë¤Ä¤Ê¤¬¤ë¥¯¥é¥¹ */
+  static unsigned	classmask[] = { /* ï¿½ï¿½ï¿½Ë¤Ä¤Ê¤ï¿½ï¿½ë¥¯ï¿½é¥¹ */
     (1 << ND_SWD) | (1 << ND_SUC),	/* MWD --> SUC | SWD */
     (1 << ND_SWD),			/* SWD --> SWD */
     (1 << ND_MWD) | (1 << ND_SWD),	/* PRE --> MWD | SWD */
@@ -966,12 +966,12 @@ parseWord(cx, yy, ys, ye, class, xqh, maxclen, doflush, douniq)
     struct nword	*p, *q, *r;
     int			ys1, ye1;
 
-    /* ÆÉ¤ß¤ÎÄ¹¤µ clen ¤ÎÃ±¸ì¤Î¤¦¤Á¡¢¸å¤í¤Ë class ¤Ç»ØÄê¤µ¤ì¤¿Ã±¸ì¤¬
-       ¤Ä¤Ê¤¬¤ë²ÄÇ½À­¤¬¤¢¤ë¤â¤Î¤ò¥ê¥¹¥È¥¢¥Ã¥×¤·¡¢tail ¤Ëµ­Ï¿¤¹¤ë */
+    /* ï¿½É¤ß¤ï¿½Ä¹ï¿½ï¿½ clen ï¿½ï¿½Ã±ï¿½ï¿½Î¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ class ï¿½Ç»ï¿½ï¿½ê¤µï¿½ì¤¿Ã±ï¿½ì¤¬
+       ï¿½Ä¤Ê¤ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¤ï¿½ê¥¹ï¿½È¥ï¿½ï¿½Ã¥×¤ï¿½ï¿½ï¿½tail ï¿½Ëµï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ */
     for (p = xqh[clen], sameLen = 0; p; p = p->nw_next) {
       if (classmask[p->nw_class] & (1<<class)) {
-	/* p ¤Î¸å¤í¤Ë class ¤ÎÃ±¸ì¤¬¤Ä¤Ê¤¬¤ë²ÄÇ½À­¤¬¤¢¤ë */
-	if (sameLen < TAILSIZE) { /* ¤Þ¤À tail ¤Ë¤¢¤­¤¬¤¢¤ë */
+	/* p ï¿½Î¸ï¿½ï¿½ï¿½ class ï¿½ï¿½Ã±ï¿½ì¤¬ï¿½Ä¤Ê¤ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	if (sameLen < TAILSIZE) { /* ï¿½Þ¤ï¿½ tail ï¿½Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	  tail[sameLen++] = p;
 	}
       }
@@ -996,10 +996,10 @@ parseWord(cx, yy, ys, ye, class, xqh, maxclen, doflush, douniq)
 	    struct nword	*s;
 	    if (gram && !IsShuutan(gram, pq->nw_rowcol)) {
 #ifdef BUNMATU
-	      /* Ê¸¾ÏËö¤Ë¤·¤«¤Ê¤é¤Ê¤¤ */
+	      /* Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Ê¤ï¿½ */
 	      if (IsBunmatu(gram, pq->nw_rowcol)) {
-		/* ¶çÆÉÅÀ¤Ê¤É¤Î¾ì¹ç¤È¡¢ÆÉ¤ß¤ò¿Ô¤¯¤·¤Æ¤¤¤ë¾ì¹ç¤Ë¤Ï
-		   Ê¸¾ÏËö¸¡ºº¤ÏÉÔÍ× */
+		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤É¤Î¾ï¿½ï¿½È¡ï¿½ï¿½É¤ß¤ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½
+		   Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		if (q->nw_class >= ND_OPN ||
 		    (doflush && yy + pq->nw_ylen == cx->store->nyomi))
 		  pq->nw_flags &= ~NW_BUNMATU;
@@ -1180,8 +1180,11 @@ uniqWord(key, words, ylen, mode)
 	      /* compare by word */
 	      switch(wsize) {
 	      case 3:	if (*p1++ != *p2++) goto next;
+	      /* no break */
 		      case 2:	if (*p1++ != *p2++) goto next;
+		      /* no break */
 		      case 1:	if (*p1++ != *p2++) goto next;
+		      /* no break */
 		      case 0:	break;
 		      default:
 			for (i = wsize; i--;)
@@ -1439,15 +1442,15 @@ evalSplit(cx, suc, ul)
   u2 = 0L;
   for (p = suc; p; p = p->nw_next)  
   {
-    if (!CanSplitWord(p) || /* Ê¸Àá¤Ë¤Ê¤é¤Ê¤¤ */
-	OnlyBunmatu(p) || /* ¥ê¥Æ¥é¥ë¤ÎÄ¾Á°¤Ç¤·¤«Ê¸Àá¤Ë¤Ê¤ì¤Ê¤¤ */
-	(p->nw_rowcol == cx->gram->P_KJ) || /* Ã±´Á»ú */
-	(p->nw_flags & NW_LOWPRI) || /* Í¥ÀèÅÙ¤ÎÄã¤¤Ê¸Àá */
+    if (!CanSplitWord(p) || /* Ê¸ï¿½ï¿½Ë¤Ê¤ï¿½Ê¤ï¿½ */
+	OnlyBunmatu(p) || /* ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Ë¤Ê¤ï¿½Ê¤ï¿½ */
+	(p->nw_rowcol == cx->gram->P_KJ) || /* Ã±ï¿½ï¿½ï¿½ï¿½ */
+	(p->nw_flags & NW_LOWPRI) || /* Í¥ï¿½ï¿½ï¿½Ù¤ï¿½ï¿½ã¤¤Ê¸ï¿½ï¿½ */
 	(p->nw_flags & NW_SUC))
       continue;
     if (l2 <= p->nw_ylen) {
       l2 = p->nw_ylen;
-      /* ÆÉ¤ß¤¬°ìÊ¸»ú¤ÎÃ±¸ì¤ÎÍ¥ÀèÅÙ¤Ï¹ÍÎ¸¤·¤Ê¤¤ */
+      /* ï¿½É¤ß¤ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Í¥ï¿½ï¿½ï¿½Ù¤Ï¹ï¿½Î¸ï¿½ï¿½ï¿½Ê¤ï¿½ */
       if (u2 < p->nw_prio && p->nw_ylen > 1)
         u2 = p->nw_prio;
     }
@@ -1544,12 +1547,12 @@ calcSplit(cx, yy, top, xq, maxclen, flush)
       unsigned long		u;
 #endif
       struct splitParm		ul;
-      /* Ê¸Àá¤Ë¤Ê¤é¤Ê¤¤ */
+      /* Ê¸ï¿½ï¿½Ë¤Ê¤ï¿½Ê¤ï¿½ */
       if (!CanSplitWord(w)) {
 	continue;
       }
 #ifdef LOGIC_HACK
-      /* Í¥ÀèÅÙ¤ÎÄã¤¤Ê¸Àá¤Î¸å¤Ç¤ÏÀÚ¤é¤Ê¤¤ */
+      /* Í¥ï¿½ï¿½ï¿½Ù¤ï¿½ï¿½ã¤¤Ê¸ï¿½ï¿½Î¸ï¿½Ç¤ï¿½ï¿½Ú¤ï¿½Ê¤ï¿½ */
       if (w->nw_flags & NW_LOWPRI) {
 	  DontSplitWord(w);
 	  continue;
@@ -1558,31 +1561,31 @@ calcSplit(cx, yy, top, xq, maxclen, flush)
       if ((w->nw_flags & NW_PRE) && (w->nw_flags & NW_SUC)) {
 	continue;
       }
-      /* ÆÉ¤ß¤ò¾ÃÈñ¤·¤Æ¤¤¤Ê¤¤ */
+      /* ï¿½É¤ß¤ï¿½ï¿½ï¿½ñ¤·¤Æ¤ï¿½ï¿½Ê¤ï¿½ */
       l1 = w->nw_ylen;
       if (l1 <= 0) {
 	continue;
       }
-      /* °ìÊ¸Àá¤Ë¤¹¤ë¤Î¤¬ºÇÄ¹ */
+      /* ï¿½ï¿½Ê¸ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½Î¤ï¿½ï¿½ï¿½Ä¹ */
       if (flush && (unsigned)yy + w->nw_ylen == cx->store->nyomi) {
 	L1 = l1;
 	break;
       } 
 #ifdef BUNMATU
-      /*  Â³¤¯Ê¸Àá¤¬¥ê¥Æ¥é¥ë¤Ç¤Ê¤¤¤Ê¤éÊ¸¾ÏËöÉÊ»ì¤ÏÊ¸¤ÎÅÓÃæ¤Ë¤Ê¤é¤Ê¤¤ */
+      /*  Â³ï¿½ï¿½Ê¸ï¿½á¤¬ï¿½ï¿½Æ¥ï¿½ï¿½Ç¤Ê¤ï¿½ï¿½Ê¤ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤Ê¤ï¿½Ê¤ï¿½ */
       else if (OnlyBunmatu(w) && xq[l1].tree->nw_lit == 0) {
 	DontSplitWord(w);
 	continue;
       }
 #endif
 #ifdef LOGIC_HACK
-      /* Ã±´Á»ú¤ÏÊ¸¤ÎÅÓÃæ¤ËÅÐ¾ì¤·¤Ê¤¤ */
+      /* Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ì¤·ï¿½Ê¤ï¿½ */
       if (w->nw_rowcol == cx->gram->P_KJ) {
 	  DontSplitWord(w);
 	  continue;
       }
 #endif
-      /* ±¦ÎÙ¤ÎÊ¸Àá¤ò²òÀÏ */
+      /* ï¿½ï¿½ï¿½Ù¤ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
       if (l1 <= maxary) {
 	if (!ul2[l1].l2) 
 	  evalSplit(cx, xq[l1].tree, &ul2[l1]);
@@ -1595,10 +1598,10 @@ calcSplit(cx, yy, top, xq, maxclen, flush)
       l = l1 + ul.l2;
 #ifdef LOGIC_HACK
       u = w->nw_prio + ul.u2;
-      if ((L < l) || /* ÆóÊ¸ÀáºÇÄ¹ */
+      if ((L < l) || /* ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ä¹ */
 	  ((L == l) &&
-	   (U < u || /* Í¥ÀèÅÙ¤Î¹ç·× */
-	    (U == u && (L2 < ul.l2))))) { /* ÆóÊ¸ÀáÌÜ¤ÎÄ¹¤µ */
+	   (U < u || /* Í¥ï¿½ï¿½ï¿½Ù¤Î¹ï¿½ï¿½ */
+	    (U == u && (L2 < ul.l2))))) { /* ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ü¤ï¿½Ä¹ï¿½ï¿½ */
 	  L = l;
 	  U = u;
 	  L1 = l1;
