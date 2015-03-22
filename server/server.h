@@ -177,7 +177,7 @@ extern const char *DebugProc[][2];
 extern const char *DebugProcWide[][2];
 #endif
 extern const char *CallFuncName;
-extern int (*CallFunc) pro((ClientPtr *clientp));
+extern int (*CallFunc)(ClientPtr *clientp);
 extern ACLPtr ACLHead ;
 extern int canna_server_hi;
 extern int canna_server_lo;

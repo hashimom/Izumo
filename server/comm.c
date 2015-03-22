@@ -63,11 +63,11 @@ typedef struct tagClibufList {
 
 EventMgr *global_event_mgr = NULL;
 
-static void ClientBuf_init pro((ClientBuf *obj,
-      const ListenerRec *parent, sock_type fd));
-static void ClientBuf_destroy pro((ClientBuf *obj));
-static int ClientBuf_recv pro((ClientBuf *obj));
-static int ClientBuf_send pro((ClientBuf *obj));
+static void ClientBuf_init(ClientBuf *obj,
+      const ListenerRec *parent, sock_type fd);
+static void ClientBuf_destroy(ClientBuf *obj);
+static int ClientBuf_recv(ClientBuf *obj);
+static int ClientBuf_send(ClientBuf *obj);
 #define ClientBuf_getfd_fast(obj) ((obj)->fd)
 #define CLIENT_BUF_IS_SENDING(obj) \
     ((obj)->sendbuf.sb_curr != (obj)->sendbuf.sb_buf)

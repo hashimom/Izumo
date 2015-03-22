@@ -81,8 +81,8 @@ static char rcs_id[] = "@(#) 102.1 $Id: wconvert.c,v 1.11.2.2 2003/12/27 23:30:5
 
 
 typedef struct {
-  int (*func) pro((ClientPtr *));
-  int (*extdat) pro((BYTE *));
+  int (*func)(ClientPtr *);
+  int (*extdat)(BYTE *);
 } reqproc;
 
 extern const char *WideProtoName[], *ExtensionRequest[];
@@ -91,11 +91,11 @@ extern const reqproc WideVector[];
 extern const reqproc ExtensionWideVector[];
 #endif
 
-static int RkThrough pro((int cx, int command, char *buf,
-      int content_size, int buffer_size));
+static int RkThrough(int cx, int command, char *buf,
+      int content_size, int buffer_size);
 
 #ifdef DEBUG
-static char *conveuc pro((Ushort *src));
+static char *conveuc(Ushort *src);
 static const char null[] = "NULL";
 #endif /* DEBUG */
 static IRwReq	Request ;

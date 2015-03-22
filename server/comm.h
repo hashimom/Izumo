@@ -31,8 +31,8 @@
  */
 typedef int sock_type;
 #define INVALID_SOCK -1
-typedef int (*GetConnectionInfoProc) pro((void *obj,
-      sock_type connfd, Address *addr, char **hostname));
+typedef int (*GetConnectionInfoProc)(void *obj,
+      sock_type connfd, Address *addr, char **hostname);
 
 typedef struct {
   /* public */

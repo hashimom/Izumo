@@ -32,7 +32,7 @@ static char rcs_id[] = "$Id: main.c,v 1.10 2003/09/24 14:50:40 aida_s Exp $";
 #ifdef DEBUG
 const char *CallFuncName;
 #endif
-int (*CallFunc) pro((ClientPtr *clientp));
+int (*CallFunc)(ClientPtr *clientp);
 
 
 main(argc, argv)

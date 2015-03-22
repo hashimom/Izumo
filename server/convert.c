@@ -52,7 +52,7 @@ static char rcs_id[] = "@(#) 102.1 $Id: convert.c,v 1.10.2.1 2003/12/27 17:15:24
 # undef MIN
 #endif
 #define MIN RKI_MIN
-static int ProcReq0 pro((char *buf, int size));
+static int ProcReq0(char *buf, int size);
 extern const char *ProtoName[];
 
 #ifdef DEBUGPROTO
@@ -86,8 +86,8 @@ int n;
 #endif /* !DEBUGPROTO */
 
 typedef struct {
-  int (*func) pro((ClientPtr *));
-  int (*extdat) pro((char *, int));
+  int (*func)(ClientPtr *);
+  int (*extdat)(char *, int);
 } oreqproc;
 
 extern oreqproc Vector[];
@@ -1506,7 +1506,7 @@ size_t len;
 const char *username;
 const char *hostname;
 {
-    int (*ReqCallFunc) pro((char *, int)) ;
+    int (*ReqCallFunc)(char *, int);
     register Req0 *req0 = &Request.Request0 ;
     const char *username0 = username ? username : "";
     const char *hostname0 = hostname ? hostname : "";
