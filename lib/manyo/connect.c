@@ -37,6 +37,22 @@ int mny_con_create_socket(char* path)
 	return(0);
 }
 
+int mny_con_sndrcv(char *buf, int len)
+{
+	int ret = -1;
+
+	/* send */
+	ret = write(fd, buf, len);
+	if (ret < 0)
+	    return(ret);
+
+	/* receive */
+	ret = read(fd, buf, 256);
+
+	return(ret);
+}
+
+
 int mny_con_close()
 {
 	return close(fd);

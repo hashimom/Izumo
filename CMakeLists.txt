@@ -49,9 +49,15 @@ ADD_LIBRARY(rk STATIC
   lib/RK/permdic.c 
   lib/RK/tempdic.c 
   lib/RK/util.c)
+ADD_LIBRARY(manyo STATIC
+  lib/manyo/manyo.c
+  lib/manyo/connect.c)
 
 TARGET_LINK_LIBRARIES(izumooyashiro rkindep)
 TARGET_LINK_LIBRARIES(izumooyashiro rk)
+
+ADD_EXECUTABLE(mnysample lib/manyo/sample.c)
+TARGET_LINK_LIBRARIES(mnysample manyo)
 
 # build dic
 ADD_EXECUTABLE(crfreq  dic/cmd/crfreq.c)

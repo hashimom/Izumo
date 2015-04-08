@@ -8,6 +8,7 @@
 #define LIB_MANYO_CONNECT_H_
 
 extern int mny_con_create_socket(char* path);
+extern int mny_con_sndrcv(char *buf, int len);
 extern int mny_con_close();
 
 

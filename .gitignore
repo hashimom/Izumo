@@ -33,3 +33,7 @@ build
 include/config.h
 .project
 .cproject
+
+# for KDevelop4
+.kdev4
+Izumo.kdev4

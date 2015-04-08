@@ -15,7 +15,9 @@ int main()
 	int id = -1;
 
 	id = mny_open(SERVER, 0, USERNAME);
-	if (id > 0) {
+	if (id >= 0) {
+		printf("id= %d\n", id);
+		sleep(1);
 		mny_close(id);
 	}
 	return(0);
