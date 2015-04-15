@@ -27,15 +27,15 @@
 
 #define BUNMATU 
 
-/* BUNMATU ¥Þ¥¯¥í¤ò define ¤¹¤ë¤È¡¢ËÌÎ¦ÀèÃ¼²Ê³Øµ»½ÑÂç³Ø±¡Âç³Ø¾ðÊó²Ê³Ø
-   ¸¦µæ²Ê¤ÎÆ£»ÞÏÂ¹¨(fujieda@jaist.ac.jp)¤µ¤ó¤¬¡¢¡Ø¤«¤ó¤Ê¡Ù¤Î¤«¤Ê´Á»úÊÑ
-   ´¹¸úÎ¨¸þ¾å¤Î¤¿¤á¤Ë¡¢1994 Åß¤ËÁÈ¤ß¹þ¤ó¤À¡ÖÊ¸¾ÏËöµ­¹æ¡×¤¬Í­¸ú¤Ë¤Ê¤ê¤Þ
-   ¤¹¡£¤³¤ì¤Ë¤è¤êÊ¸¾ÏËö¤Ë¤·¤«¸½¤ì¤Ê¤¤Ê¸»ú¤¬Ê¸Àá¤ÎÅÓÃæ¤Ë½Ð¤ÆÍè¤ë¤³¤È¤¬
-   ¤Ê¤¯¤Ê¤êÊÑ´¹¸úÎ¨¤¬¸þ¾å¤·¤Þ¤¹¡£¤³¤Î¥³¡¼¥É¤ò¤«¤¤¤Æ²¼¤µ¤¤¤Þ¤·¤¿Æ£»Þ¤µ
-   ¤ó¤Ë´¶¼Õ¤·¤Þ¤¹¡£ */
+/* BUNMATU ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ define ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Î¦ï¿½ï¿½Ã¼ï¿½Ê³Øµï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½Ê³ï¿½
+   ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Æ£ï¿½ï¿½ï¿½Â¹ï¿½(fujieda@jaist.ac.jp)ï¿½ï¿½ï¿½ó¤¬¡ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½Ê¡Ù¤Î¤ï¿½ï¿½Ê´ï¿½ï¿½ï¿½ï¿½ï¿½
+   ï¿½ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½ï¿½Î¤ï¿½ï¿½ï¿½Ë¡ï¿½1994 ï¿½ß¤ï¿½ï¿½È¤ß¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¤ï¿½Í­ï¿½ï¿½ï¿½Ë¤Ê¤ï¿½ï¿½
+   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½Ð¤ï¿½ï¿½ï¿½ë¤³ï¿½È¤ï¿½
+   ï¿½Ê¤ï¿½ï¿½Ê¤ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½ï¿½ï¿½å¤·ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½É¤ò¤«¤ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Æ£ï¿½Þ¤ï¿½
+   ï¿½ï¿½Ë´ï¿½ï¿½Õ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ */
 
 #define LOGIC_HACK
-/* Æ£»Þ¡÷£Ê£Á£É£Ó£Ô¤Î¥Ï¥Ã¥¯¤òÍ­¸ú¤Ë¤¹¤ë */
+/* Æ£ï¿½Þ¡ï¿½ï¿½Ê£ï¿½ï¿½É£Ó£Ô¤Î¥Ï¥Ã¥ï¿½ï¿½ï¿½Í­ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½ */
 
 #define EXTENSION_NEW
 
@@ -55,7 +55,7 @@ typedef unsigned short Wchar;
 typedef Wchar cannawc;
 #define CANNAWC_DEFINED
 #define CANNA_NEW_WCHAR_AWARE
-#include "canna/RK.h"
+#include "RK.h"
 
 #include "ccompat.h"
 
@@ -221,7 +221,7 @@ typedef union _rkunion {
 #define rk_isascii(c) (!((c) & ~0xff) ? isascii((int)(c)) : 0)
 #define rk_isspace(c) (!((c) & ~0xff) ? isspace((int)(c)) : 0)
 
-/* WARNING: ¤³¤ì¤òÊÂ¤ÙÊÑ¤¨¤ë¤È¤­¤ÏHdrtag¤ËÃí°Õ¤¹¤ë¤³¤È! */
+/* WARNING: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¤ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½Hdrtagï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ë¤³ï¿½ï¿½! */
 enum {
   /* These must be first 5 tags in this order for new (>=300702L) dic */
   HD_MAG, /* mandatory */
@@ -806,10 +806,10 @@ struct nstore {
 #endif
     unsigned		nyomi;		/* number of yomigana chars */
     unsigned		maxyomi;	/* maximum number of yomigana chars */
-    struct nbun		*bunq;		/* Ê¸Àá¥­¥å¡¼ */
+    struct nbun		*bunq;		/* Ê¸ï¿½á¥­ï¿½å¡¼ */
     unsigned		maxbunq;	/* saidai bunnsetu suu */
     unsigned		maxbun;		/* saidai bunsetsu suu */
-    int			curbun;		/* ¥«¥ì¥ó¥ÈÊ¸Àá */
+    int			curbun;		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ */
     int			maxxq;		/* saidai queue == bunsetu moji suu */
     struct nqueue	*xq;		/* henkan queue */
     struct nword	**xqh;		/* used in _RkparseBun() */
@@ -1035,7 +1035,7 @@ int			_RkCalcUnlog2();
 /* lang dep part */
 #define IS_WC_G1_HYPHEN(wc)	((wc) == 0xa1bc)
 #define IS_HYPHEN(wc)		(IS_WC_G1_HYPHEN(wc) || ((wc) == '-'))
-/* space ¤â¸õÊä¤È¤·¤Æ»È¤¤¤¿¤¤¤¬º£¤Î½ê¤Ï space */
+/* space ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½Æ»È¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½ï¿½ï¿½ space */
 #define IS_DIC_PUNCT(euc)	isspace(euc)
 
 	int		_RkRealizeDF();
@@ -1105,11 +1105,11 @@ void			_RkRehashCache();
 /*
  * RK_CAND_WMAX <= RK_LEN_WMAX
  */
-/* ¸õÊä¿ô */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #define	NW_MAXCAND	0x07	/* 7 */
 #define	EX_NW_MAXCAND	0xfff	/* 4096 */
 
-/* ¸õÊäÄ¹ */
+/* ï¿½ï¿½ï¿½ï¿½Ä¹ */
 #define	NW_MAXCANDLEN	0x7f
 #define RK_CAND_WMAX	0x7f
 #define RK_CAND_NMAX    0xfff /* 4095 */
@@ -1131,7 +1131,7 @@ void			_RkRehashCache();
 #define	RK_WREC_BMAX	EX_NW_MAXWREC
 #define	RK_MAX_TEXT_LEN	MAX_WREC_BMAX
 
-#define	RK_CONC_NMAX	16	/* ÀÜÂ³¤¹¤ëÉÕÂ°¸ì¤Î¿ô(¸ú¤¤¤Æ¤ë¤Î¤«¤Ê¡©) */
+#define	RK_CONC_NMAX	16	/* ï¿½ï¿½Â³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ï¿½Î¿ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½Î¤ï¿½ï¿½Ê¡ï¿½) */
 
 #define RK_OLD_MAX_HDRSIZ	1024
 

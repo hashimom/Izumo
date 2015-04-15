@@ -90,6 +90,12 @@ size_t len;
 
 #ifdef DEBUG
   CallFuncName = NULL;
+  int i = 0;
+  ir_debug( Dmsg(5, "data:  ") );
+  for (i=0; i<len; i++) {
+	  ir_debug( Dmsg(5, "%02x ", data[i]) );
+  }
+  ir_debug( Dmsg(5, "\n") );
 #endif
   if (client && client->version_hi > 1)
     nwant = parse_wide_request(&request, data, len, username, hostname);

@@ -58,7 +58,7 @@ static FILE *Fp;
 static int DebugMode = 0;
 static int LogLevel = 0;
 #endif
-static int Syslog = 0; /* syslog を通すかどうかのフラグ */
+static int Syslog = 1; /* syslog を通すかどうかのフラグ。IzumoではデフォルトをSyslogへ通す */
 
 int PortNumberPlus = 0;
 int MMountFlag = 0; /* メモリに辞書をロードするかしないかのフラグ */
@@ -94,9 +94,9 @@ static int rkw_initialize_done = 0;
 static void Reset();
 
 #ifdef INET6
-#define USAGE "Usage: cannaserver [-p num] [-l num] [-u userid] [-syslog] [-inet] [-inet6] [-d] [dichome]"
+#define USAGE "Usage: izumooyashiro [-p num] [-l num] [-u userid] [-syslog] [-inet] [-inet6] [-d] [dichome]"
 #else
-#define USAGE "Usage: cannaserver [-p num] [-l num] [-u userid] [-syslog] [-inet] [-d] [dichome]"
+#define USAGE "Usage: izumooyashiro [-p num] [-l num] [-u userid] [-syslog] [-inet] [-d] [dichome]"
 #endif
 static void
 Usage()
@@ -167,7 +167,7 @@ char *argv[];
 #endif
 #ifdef HAVE_SYSLOG
  	else if (!strcmp( argv[i], "-syslog")) {
-	  Syslog = 1;
+	  Syslog = 0;
 	}
     }
 

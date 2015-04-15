@@ -95,7 +95,9 @@ static int RkThrough(int cx, int command, char *buf,
       int content_size, int buffer_size);
 
 #ifdef DEBUG
-static char *conveuc(Ushort *src);
+#include <iconv.h>
+/* static char *conveuc(Ushort *src); */
+static char *convutf8(Ushort *src);
 static const char null[] = "NULL";
 #endif /* DEBUG */
 static IRwReq	Request ;
@@ -172,7 +174,7 @@ Ushort *buf, **bufp_return;
     *p++ = (Ushort)0;
     rest -= len + 1;
     RkwRight(cxnum);
-    ir_debug( Dmsg(5, "%s ", (len > 0) ? conveuc(p - len - 1) : null) );
+    ir_debug( Dmsg(5, "%s ", (len > 0) ? convutf8(p - len - 1) : null) );
   }
   ir_debug(Dmsg(5, "\n"));
   *p++ = (Ushort)0;
@@ -850,7 +852,7 @@ ClientPtr *clientp ;
 	data = Request.type12.datainfo;
 	ir_debug( Dmsg(5, "辞書名=%s\n", (dicname)?dicname:null) );
 	ir_debug( Dmsg(5, "登録するデータ[%s]\n",
-		       (data)?conveuc(data):null) );
+		       (data)?convutf8(data):null) );
 
 	stat = RkwDefineDic(cxnum, dicname, data);
     }
@@ -872,7 +874,7 @@ ClientPtr *clientp ;
 	data = Request.type12.datainfo ;
 	ir_debug( Dmsg(5, "辞書名=%s\n", (dicname)?dicname:null) );
 	ir_debug( Dmsg(5, "削除するデータ[%s]\n",
-		       (data)?conveuc(data):null) );
+		       (data)?convutf8(data):null) );
 
 	stat = RkwDeleteDic(cxnum, dicname, data);
     }
@@ -991,7 +993,7 @@ ClientPtr *clientp ;
 	yomi = req->yomi;
 
 	ir_debug(Dmsg(5, "読み = %s\n",
-		      (yomi)?conveuc(yomi):null));
+		      (yomi)?convutf8(yomi):null));
 
 	if( (ret = RkwBgnBun( cxnum, yomi, yomilen, req->mode ))
 	   >= 0 ) {
@@ -1141,7 +1143,7 @@ ClientPtr *clientp ;
 	RkwGoTo( cxnum, bunsetu ) ;
 
 	ir_debug( Dmsg(5, "読み = %s\n",
-		       (req->yomi)?conveuc(req->yomi):null));
+		       (req->yomi)?convutf8(req->yomi):null));
 
 	len = req->yomi ? ushortstrlen(req->yomi) : 0;
 	ret = RkwStoreYomi(cxnum, req->yomi, len);
@@ -1741,7 +1743,7 @@ ClientPtr *clientp ;
 
     if (validcontext(cxnum, client, wSubstYomi)) {
 	ir_debug( Dmsg(5, "読み = %s\n",
-		       (req->yomi)?conveuc(req->yomi):null));
+		       (req->yomi)?convutf8(req->yomi):null));
 
 	if( (ret = RkwSubstYomi(cxnum, (int)req->begin, (int)req->end,
 				req->yomi, (int)req->yomilen)) < 0) {
@@ -1834,7 +1836,7 @@ ClientPtr *clientp ;
 	} else {
 	    /* 未決定文節の読みを取得する */
 	    ir_debug(Dmsg(5, "未決文節=%s\n",
-			  (yomi)?conveuc(yomi):null));
+			  (yomi)?convutf8(yomi):null));
 
 	}
       }
@@ -2303,7 +2305,7 @@ BYTE *buf ;
     ir_debug( Dmsg(10, "req->end =%d\n", Request.type4.end) );
     ir_debug( Dmsg(10, "req->yomilen =%d\n", Request.type4.yomilen) );
     ir_debug( Dmsg(10, "req->yomi =%s\n",
-		   (Request.type4.yomi)?conveuc(Request.type4.yomi):
+		   (Request.type4.yomi)?convutf8(Request.type4.yomi):
 		   null) );
 
     return( 0 ) ;
@@ -2465,7 +2467,7 @@ BYTE *buf ;
     ir_debug( Dmsg(10, "req->context =%d\n", Request.type11.context) );
     ir_debug( Dmsg(10, "req->curbun =%d\n", Request.type11.curbun) );
     ir_debug( Dmsg(10, "req->yomi =%s\n",
-		   (Request.type11.yomi)?conveuc(Request.type11.yomi):
+		   (Request.type11.yomi)?convutf8(Request.type11.yomi):
 		   null));
 
     return( 0 ) ;
@@ -2500,7 +2502,7 @@ BYTE *buf ;
     ir_debug( Dmsg(10, "req->context =%d\n", Request.type12.context) );
     ir_debug( Dmsg(10, "req->datainfo =%s\n",
 		   (Request.type12.datainfo)?
-		   conveuc(Request.type12.datainfo):
+		   convutf8(Request.type12.datainfo):
 		   null));
     ir_debug( Dmsg(10, "req->dicname =%s\n",
 		   (Request.type12.dicname)?Request.type12.dicname:null) );
@@ -2547,7 +2549,7 @@ BYTE *buf ;
     ir_debug( Dmsg(10, "req->context =%d\n", Request.type13.context) );
     ir_debug( Dmsg(10, "req->dicname =%s\n", Request.type13.dicname) );
     ir_debug( Dmsg(10, "req->yomi =%s\n",
-		   (Request.type13.yomi)?conveuc(Request.type13.yomi):
+		   (Request.type13.yomi)?convutf8(Request.type13.yomi):
 		   null));
     ir_debug( Dmsg(10, "req->yomilen =%d\n", Request.type13.yomilen) );
     ir_debug( Dmsg(10, "req->kouhosize =%d\n", Request.type13.kouhosize) );
@@ -2581,7 +2583,7 @@ BYTE *buf ;
     ir_debug( Dmsg(10, "req->mode =%d\n", Request.type14.mode) );
     ir_debug( Dmsg(10, "req->context =%d\n", Request.type14.context) );
     ir_debug( Dmsg(10, "req->yomi =%s\n",
-		   (Request.type14.yomi)?conveuc(Request.type14.yomi):
+		   (Request.type14.yomi)?convutf8(Request.type14.yomi):
 		   null));
 
     return( 0 ) ;
@@ -2822,13 +2824,33 @@ Ushort *yomi;
 #endif /* WIDE_PROTO */
 
 #ifdef DEBUG
-static char *
-conveuc(src)
-Ushort *src;
+#if 0
+static char *conveuc(Ushort *src)
 {
     static char dest[CBUFSIZE];
     ushort2euc(src, ushortstrlen(src), dest, CBUFSIZE);
     return(dest);
+}
+#endif
+static void exec_iconv_euc2utf8(const char *instr, const char *outstr)
+{
+	iconv_t cd;
+	size_t src_len = strlen(instr);
+	size_t dest_len = CBUFSIZE - 1;
+
+	cd = iconv_open("UTF-8", "EUC-JP");
+
+	iconv(cd, (char **)&instr, &src_len, (char **)&outstr, &dest_len);
+	iconv_close(cd);
+}
+static char *convutf8(Ushort *src)
+{
+	static char eucdest[CBUFSIZE];
+	static char dest[CBUFSIZE];
+
+	ushort2euc(src, ushortstrlen(src), eucdest, CBUFSIZE);
+	exec_iconv_euc2utf8(eucdest, dest);
+	return(dest);
 }
 #endif /* DEBUG */
 							/* S000:begin */

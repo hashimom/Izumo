@@ -57,6 +57,7 @@ TARGET_LINK_LIBRARIES(izumooyashiro rkindep)
 TARGET_LINK_LIBRARIES(izumooyashiro rk)
 
 ADD_EXECUTABLE(mnysample lib/manyo/sample.c)
+TARGET_LINK_LIBRARIES(manyo rk)
 TARGET_LINK_LIBRARIES(mnysample manyo)
 
 # build dic
