@@ -23,7 +23,7 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/include/config.h.in ${PROJECT_SOURCE_DIR}/i
 ADD_EXECUTABLE(izumooyashiro 
   server/comm.c 
   server/convert.c 
-  server/main.c 
+  server/izumooyashiro.c 
   server/misc.c 
   server/session.c 
   server/util.c 

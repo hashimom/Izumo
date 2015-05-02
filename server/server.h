@@ -160,6 +160,19 @@ typedef struct _AccessControlList {
     AddrList *hostaddrs;
 } ACLRec ;
 
+struct tagSockHolder {
+#ifdef USE_UNIX_SOCKET
+  sock_type unsock;
+  struct sockaddr_un unaddr;
+#endif
+#ifdef USE_INET_SOCKET
+  sock_type insock;
+# ifdef INET6
+  sock_type in6sock;
+# endif
+#endif
+};
+
 typedef struct _AccessControlList *ACLPtr ;
 
 #ifdef USE_INET_SOCKET
@@ -228,11 +241,6 @@ int parse_euc_request(int *request, BYTE *data, size_t len,
 char *insertUserSla(char *, int);
 int checkPermissionToRead(ClientPtr client,
       char *dirname, char *dicname);
-
-/* main.c */
-int process_request(
-      ClientPtr *clientp, ClientBuf *client_buf,
-      BYTE *data, size_t len);
 
 /* session.c */
 UserTable *UserTable_new(void);

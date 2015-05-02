@@ -1,7 +1,7 @@
 The whole distribution is under following license agreements. You must
 agree with both of them to use or distribute Izumo.
 
-/* Copyright (c) 2014-2015 Izumo Project. All rights reserved.
+/* Copyright (c) 2015 Masahiko Hashimoto <hashimom@geeko.jp>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -12,7 +12,7 @@ agree with both of them to use or distribute Izumo.
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@ agree with both of them to use or distribute Izumo.
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+*/
 
 /* Copyright (c) 2002-2004 Canna Project. All rights reserved.
  *
@@ -107,3 +107,6 @@ some utilities is under following license.
 
 Pubdic+ is distributed under so-called MIT license. See
 dic/ideo/pubdic/COPYRIGHT (in both Japanese and English).
+
+cWebSocket is distributed under so-called MIT license.
+See lib/cwebsocket/LICENCE
