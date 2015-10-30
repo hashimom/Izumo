@@ -264,5 +264,8 @@ int set_cxt(ClientPtr cl, int n);
 void off_cxt(ClientPtr cl, int cn);
 int chk_cxt(ClientPtr cl, int cn);
 
+/* izumowebsock.c */
+int IzumoWebSockRcvSnd(int fd);
+
 #endif	/* SERVER_H */
 /* vim: set sw=2: */

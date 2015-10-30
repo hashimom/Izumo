@@ -23,14 +23,16 @@
 #include <signal.h>
 #include <fcntl.h>
 
-static int websock_flg = 0;
+/* 暫定。いずれは別の方法でWebSocket/UDSを切り替える */
+int websock_flg = 0;
+#define IZUMO_WEBSOCK_DBG /* for websocket debug */
 
 enum {
 	SOCK_OTHER_ERROR = -2,
 	SOCK_BIND_ERROR,
 	SOCK_OK, /* This is '0'. (dummy) */
 };
-
+#if 0
 static int open_unix_socket(struct sockaddr_un *unaddr)
 {
 	int oldUmask, oldflags;;
@@ -115,7 +117,7 @@ static int open_inet_socket()
 			insock.sin_port = sp->s_port;
 		}
 		else {
-			insock.sin_port = IR_DEFAULT_PORT;
+			insock.sin_port = htons(IR_DEFAULT_PORT);
 		}
 		ir_debug( Dmsg(5, "INET PORT NO:[%d]\n",insock.sin_port));
 
@@ -132,20 +134,21 @@ static int open_inet_socket()
 			goto last;
 		}
 
+#if 0 /* CannaプロトコルはノンブロッキングモードだったがWebSocketではブロッキングで行う ※要検討 */
 		oldflags = fcntl(request, F_GETFL, 0);
 		if (fcntl(request, F_SETFL, oldflags | O_NONBLOCK) < 0) {
 			ir_debug( Dmsg(5,"Warning: Server could not set nonblocking mode.\n"));
 			close(request);
 			goto last;
 		}
-
+#endif
 		status = request;
 	}
 
 last:
 	return(status);
 }
-
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -167,19 +170,22 @@ int main(int argc, char *argv[])
 		/* 他のオプションは EarlyInit で受け取るが徐々に getopt へ移行する */
 		}
 	}
+#ifdef IZUMO_WEBSOCK_DBG
+	websock_flg = 1;
+#endif /* IZUMO_WEBSOCK_DBG */
 
 	EarlyInit(argc, argv);
 	global_user_table = UserTable_new();
 	global_event_mgr = EventMgr_new();
 	if ((global_user_table == NULL) || (global_event_mgr == NULL)) {
-		fprintf(stderr, "UserTable/EventMgr new failed; probably due to lack of memor\n");
+//		fprintf(stderr, "UserTable/EventMgr new failed; probably due to lack of memor\n");
 		goto fail;
 	}
 
 	/* WebSocket を使用する場合は INET を有効にする */
 	if (websock_flg) {
 		UseInet = 1;
-		sock_holder.insock = open_inet_socket();
+//		sock_holder.insock = open_inet_socket();
 		if (sock_holder.insock < 0) {
 			goto fail;
 		}
@@ -187,14 +193,14 @@ int main(int argc, char *argv[])
 	}
 
 	/* UNIXドメインソケットは必ずオープン */
-	sock_holder.unsock = open_unix_socket(&(sock_holder.unaddr));
+//	sock_holder.unsock = open_unix_socket(&(sock_holder.unaddr));
 	if (sock_holder.unsock < 0) {
 		goto fail;
 	}
 	ir_debug( Dmsg(3,"UNIXドメインはできた\n") );
 
 	if (SockHolder_tie(&sock_holder, global_event_mgr) != 0) {
-		fprintf(stderr, "SockHolder_tie() failed; probably due to lack of memor\n");
+//		fprintf(stderr, "SockHolder_tie() failed; probably due to lack of memor\n");
 		goto fail;
 	}
 
@@ -211,7 +217,7 @@ last:
 	/* UNIX domain socket close */
 	if (sock_holder.unsock != INVALID_SOCK) {
 		close(sock_holder.unsock);
-		unlink(sock_holder.unaddr.sun_path);
+//		unlink(sock_holder.unaddr.sun_path);
 	}
 	/* INET close */
 	if (sock_holder.insock != INVALID_SOCK) {

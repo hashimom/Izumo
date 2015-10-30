@@ -27,8 +27,6 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-RCSID("$Id: comm.c,v 1.4.2.3 2004/04/26 21:48:37 aida_s Exp $");
-
 /* TODO: better error reporting */
 
 #define COMM_DEBUG
@@ -71,6 +69,8 @@ static int ClientBuf_send(ClientBuf *obj);
 #define ClientBuf_getfd_fast(obj) ((obj)->fd)
 #define CLIENT_BUF_IS_SENDING(obj) \
     ((obj)->sendbuf.sb_curr != (obj)->sendbuf.sb_buf)
+
+extern int websock_flg;
 
 
 #ifdef DEBUG
@@ -177,58 +177,57 @@ ClientBuf *obj;
   RkiStrbuf_destroy(&obj->sendbuf);
 }
 
-static int
-ClientBuf_recv(obj)
-ClientBuf *obj;
+static int ClientBuf_recv(ClientBuf *obj)
 {
-  ssize_t size;
-  int newwant;
-  RkiStrbuf *buf = &obj->recvbuf;
-  int savederr;
+	ssize_t size;
+	int newwant;
+	RkiStrbuf *buf = &obj->recvbuf;
+	int savederr;
 
-  assert(obj->nwant && !CLIENT_BUF_IS_SENDING(obj));
-  if (RKI_STRBUF_RESERVE(buf, buf->sb_curr - buf->sb_buf + obj->nwant)) {
-    nomem_msg("ClientBuf_recv()");
-    return -1;
-  }
-  ir_debug(Dmsg(7, "ClientBuf_recv(): receiving %d bytes, nwant=%d\n",
-	buf->sb_end - buf->sb_curr, obj->nwant));
-  size = recv(obj->fd, buf->sb_curr, buf->sb_end - buf->sb_curr, 0);
-  savederr = errno;
-  ir_debug(Dmsg(7, "ClientBuf_recv(): recv() returned %d\n", size));
-  if (size < 0) {
-    if (savederr == EINTR || savederr == EWOULDBLOCK || savederr == EAGAIN) {
-      if (++obj->nfail < 5)
+	assert(obj->nwant && !CLIENT_BUF_IS_SENDING(obj));
+
+
+	if (RKI_STRBUF_RESERVE(buf, buf->sb_curr - buf->sb_buf + obj->nwant)) {
+		nomem_msg("ClientBuf_recv()");
+		return -1;
+	}
+	ir_debug(Dmsg(7, "ClientBuf_recv(): receiving %d bytes, nwant=%d\n",
+			buf->sb_end - buf->sb_curr, obj->nwant));
+	size = recv(obj->fd, buf->sb_curr, buf->sb_end - buf->sb_curr, 0);
+	savederr = errno;
+	ir_debug(Dmsg(7, "ClientBuf_recv(): recv() returned %d\n", size));
+	if (size < 0) {
+		if (savederr == EINTR || savederr == EWOULDBLOCK || savederr == EAGAIN) {
+			if (++obj->nfail < 5)
+				return 0;
+			ir_debug(Dmsg(7,
+					"ClientBuf_recv(): too many temporary errors. errno=%d\n", savederr));
+		}
+		goto recvfail;
+	} else if (size == 0) {
+		goto recvfail;
+	}
+
+	obj->nfail = 0;
+	buf->sb_curr += size;
+	if (size < obj->nwant) {
+		obj->nwant -= size;
+		return 0;
+	}
+	obj->nwant = 0;
+
+	newwant = process_request(&obj->client, obj, (BYTE *)buf->sb_buf, buf->sb_curr - buf->sb_buf);
+	ir_debug(Dmsg(7, "ClientBuf_recv(): newwant=%d\n", size));
+
+	if (newwant < 0)
+		return -1;
+	obj->nwant = newwant;
 	return 0;
-      ir_debug(Dmsg(7,
-	    "ClientBuf_recv(): too many temporary errors. errno=%d\n",
-	    savederr));
-    }
-    goto recvfail;
-  } else if (size == 0)
-    goto recvfail;
-
-  obj->nfail = 0;
-  buf->sb_curr += size;
-  if (size < obj->nwant) {
-    obj->nwant -= size;
-    return 0;
-  }
-  obj->nwant = 0;
-
-  newwant = process_request(&obj->client, obj,
-      (BYTE *)buf->sb_buf, buf->sb_curr - buf->sb_buf);
-  ir_debug(Dmsg(7, "ClientBuf_recv(): newwant=%d\n", size));
-  if (newwant < 0)
-    return -1;
-  obj->nwant = newwant;
-  return 0;
 
 recvfail:
-  PrintMsg("[%s] Receive request failed\n",
-      obj->client ? obj->client->username : "unknown");
-  ir_debug(Dmsg(5, "ClientBuf_recv(): Receive request failed\n"));
-  return -1;
+	PrintMsg("[%s] Receive request failed\n", obj->client ? obj->client->username : "unknown");
+	ir_debug(Dmsg(5, "ClientBuf_recv(): Receive request failed\n"));
+	return -1;
 }
 
 static int
@@ -456,44 +455,51 @@ fail:
   return -1;
 }
 
-static void
-EventMgr_check_fds(obj, rfds, wfds)
-EventMgr *obj;
-rki_fd_set *rfds;
-rki_fd_set *wfds;
+static void EventMgr_check_fds(EventMgr *obj, rki_fd_set *rfds, rki_fd_set *wfds)
 {
-  int listenerno;
-  ClibufList **cbl_link;
+	int listenerno;
+	ClibufList **cbl_link;
 
-  ir_debug(Dmsg(7, "EventMgr_check_fds() start\n"));
-  for (listenerno = 0; listenerno < obj->nlisteners; ++listenerno) {
-    if (RKI_FD_ISSET(obj->listeners[listenerno].l_fd, rfds))
-      EventMgr_accept(obj, obj->listeners + listenerno);
-  }
+	ir_debug(Dmsg(7, "EventMgr_check_fds() start\n"));
+	for (listenerno = 0; listenerno < obj->nlisteners; ++listenerno) {
+		if (RKI_FD_ISSET(obj->listeners[listenerno].l_fd, rfds))
+			EventMgr_accept(obj, obj->listeners + listenerno);
+	}
 
-  for (cbl_link = &obj->cbl; *cbl_link; cbl_link = &(*cbl_link)->cbl_next) {
-    ClibufList *cbl_ent = *cbl_link;
-    ClientBuf *client_buf = &cbl_ent->cbl_body;
-    int fd = ClientBuf_getfd_fast(client_buf);
-    int error = 0;
+	for (cbl_link = &obj->cbl; *cbl_link; cbl_link = &(*cbl_link)->cbl_next) {
+		ClibufList *cbl_ent = *cbl_link;
+		ClientBuf *client_buf = &cbl_ent->cbl_body;
+		int fd = ClientBuf_getfd_fast(client_buf);
+		int error = 0;
 
-    if (RKI_FD_ISSET(fd, rfds)) 
-      error = ClientBuf_recv(client_buf);
-    else if (RKI_FD_ISSET(fd, wfds))
-      error = ClientBuf_send(client_buf);
+		if (RKI_FD_ISSET(fd, rfds)) {
+			if (websock_flg) {
+				/* Izumo WebSockの場合はここで分岐 */
+				/* 現在はフラグを分岐条件としているがいずれは変更したい */
+				error = IzumoWebSockRcvSnd(fd);
+			}
+			else {
+				/* Cannaプロトコルの場合 */
+				error = ClientBuf_recv(client_buf);
+			}
+		}
+		else if (RKI_FD_ISSET(fd, wfds)) {
+			error = ClientBuf_send(client_buf);
+		}
+		else {
+			/* nothing to do */
+		}
 
-    if (error ||
-	(cbl_ent->cbl_finalized && !CLIENT_BUF_IS_SENDING(client_buf))) {
-      ir_debug(Dmsg(5, "クライアントとの接続を切る, fd=%d\n",
-	    ClientBuf_getfd_fast(client_buf)));
-      *cbl_link = cbl_ent->cbl_next;
-      --obj->nclibufs;
-      ClientBuf_destroy(client_buf);
-      free(cbl_ent);
-      if (!*cbl_link)
-	break;
-    }
-  }
+		if (error || (cbl_ent->cbl_finalized && !CLIENT_BUF_IS_SENDING(client_buf))) {
+			ir_debug(Dmsg(5, "クライアントとの接続を切る, fd=%d\n", ClientBuf_getfd_fast(client_buf)));
+			*cbl_link = cbl_ent->cbl_next;
+			--obj->nclibufs;
+			ClientBuf_destroy(client_buf);
+			free(cbl_ent);
+			if (!*cbl_link)
+				break;
+		}
+	}
 }
 
 int
